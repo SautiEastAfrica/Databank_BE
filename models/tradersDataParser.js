@@ -11,6 +11,7 @@ let borderLocationVar = 0;
 let educationVar = 0;
 let genderVar = 0;
 let languageVar = 0;
+let otherLan = 0;
 let primaryVar = 0;
 let growVar = 0;
 let apostrophe = 0;
@@ -160,7 +161,7 @@ try {
         if (tradersDictionary[value]) {
           arrayWithEducation.map(user => {
             if (user.cell_num === num) {
-              educationVar+=1
+              educationVar += 1;
               user.education = tradersDictionary[value];
             }
           });
@@ -181,7 +182,7 @@ try {
         if (tradersDictionary[value]) {
           arrayWithCrossingFreq.map(user => {
             if (user.cell_num === num) {
-              borderCrossingVar+=1
+              borderCrossingVar += 1;
               user.crossing_freq = tradersDictionary[value];
             }
           });
@@ -236,50 +237,54 @@ try {
     sessions.map(element => {
       let num = element.cell_num;
       let strElement = element.data;
-      if (strElement.includes("'")) {
+      if (strElement.includes("language") && strElement.includes("'")) {
         if (strElement.includes("English")) {
           arrayWithLanguage.map(user => {
             if (user.cell_num === num) {
+              otherLan += 1;
               user.language = "English";
             }
           });
         } else if (strElement.includes("Swahili")) {
           arrayWithLanguage.map(user => {
             if (user.cell_num === num) {
+              otherLan += 1;
               user.language = "Swahili";
             }
           });
         } else if (strElement.includes("Luganda")) {
           arrayWithLanguage.map(user => {
             if (user.cell_num === num) {
+              otherLan += 1;
               user.language = "Luganda";
             }
           });
         } else if (strElement.includes("Kinyarwanda")) {
           arrayWithLanguage.map(user => {
             if (user.cell_num === num) {
+              otherLan += 1;
               user.language = "Kinyarwanda";
             }
           });
         } else if (strElement.includes("Lukiga")) {
           arrayWithLanguage.map(user => {
             if (user.cell_num === num) {
+              otherLan += 1;
               user.language = "Lukiga";
             }
           });
         }
-      }
-      if (strElement.includes("language") && !strElement.includes("'")) {
+      } else if (strElement.includes("language") && !strElement.includes("'")) {
+        
         const unSerialData = unserializer.unserialize(strElement);
         let value = unSerialData["language"]["0"];
-        if (unSerialData[value]) {
-          languageVar += 1;
-          arrayWithLanguage.map(user => {
-            if (user.cell_num === num) {
-              user.language = tradersDictionary.data;
-            }
-          });
-        }
+
+        arrayWithLanguage.map(user => {
+          if (user.cell_num === num) {
+            languageVar += 1;
+            user.language = tradersDictionary[value];
+          }
+        });
       }
     });
     getCountry(sessions, arrayWithLanguage);
@@ -333,27 +338,28 @@ try {
     let setBorder = [...new Set(arrayBorder)];
 
     console.log({
-      cor,
-      ageVar,
-      borderCrossingVar,
-      borderLocationVar,
-      educationVar,
-      genderVar,
-      languageVar,
-      primaryVar,
-      growVar,
-      apostrophe,
-      setBorder,
-      allgender,
-      noComma
+      // cor,
+      // ageVar,
+      // borderCrossingVar,
+      // borderLocationVar,
+      // educationVar,
+      // genderVar,
+      // languageVar,
+      // otherLan
+      // primaryVar,
+      // growVar,
+      // apostrophe,
+      // setBorder,
+      // allgender,
+      // noComma
     });
 
     try {
       console.log("\n** TRADERS TABLE **\n", Date(Date.now().toString()));
       // THIS DELETES ALL ENTRIES IN TABLE - COMMENT OUT THIS LINE WHEN TESTING
-      db.truncateTable("traders");
+       db.truncateTable("traders");
       // THIS INSERTS ~11,000 ENTRIES INTO TABLE - COMMENT OUT THIS LINE WHEN TESTING
-      db.batchInsert("traders", arrayWithCrossingLocation);
+       db.batchInsert("traders", arrayWithCrossingLocation);
     } catch {
       console.log("Failed to batch insert");
     }
