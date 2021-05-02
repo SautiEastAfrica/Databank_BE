@@ -301,7 +301,9 @@ try {
   const optionsLanguages = [
     "English",
     "Swahili",
-    "Luganda",
+    "Lugandan",
+    "Samia",
+    "Somali",
     "Kinyarwanda",
     "Lukiga"
   ];

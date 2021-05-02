@@ -118,13 +118,15 @@ const catOrder = {
       structure: [{ primary_income: "Yes" }, { primary_income: "No" }]
     },
     language: {
-      labels: ["English", "Kinyarwanda", "Luganda", "Lukiga", "Swahili"],
+      labels: ["English", "Kinyarwanda", "Lugandan", "Lukiga", "Swahili","Samia","Somali"],
       structure: [
         { language: "English" },
         { language: "Swahili" },
         { language: "Luganda" },
         { language: "Kinyarwanda" },
-        { language: "Lukiga" }
+        { language: "Lukiga" },
+        { language: "Samia" },
+        { language: "Somali" }
       ]
     },
     produce: {
